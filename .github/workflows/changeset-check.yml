@@ -1,0 +1,44 @@
+name: Changeset Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check:
+    name: Require changeset
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Check for changeset
+      env:
+        LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
+      run: |
+        # Allow skipping via label
+        if echo "$LABELS" | grep -q "skip-changeset"; then
+          echo "Skipping changeset check due to 'skip-changeset' label."
+          exit 0
+        fi
+
+        # Check if any changeset file was added under .changes/unreleased/
+        CHANGED=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+        if echo "$CHANGED" | grep -q "^\.changes/unreleased/"; then
+          echo "Changeset found."
+          exit 0
+        fi
+
+        echo ""
+        echo "No changeset found. Please run:"
+        echo "  make changeset"
+        echo ""
+        echo "This creates a .changes/unreleased/*.yaml file describing your change."
+        echo "Commit and push that file along with your PR."
+        echo ""
+        echo "To skip this check, add the 'skip-changeset' label to your PR."
+        exit 1

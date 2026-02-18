@@ -1,0 +1,69 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.22'
+
+    - name: Run tests
+      run: go test -v ./...
+
+    - name: Extract version
+      id: version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+    - name: Get changelog for version
+      id: changelog
+      run: |
+        CHANGE_FILE=".changes/${{ steps.version.outputs.VERSION }}.md"
+        echo "CHANGELOG<<EOF" >> $GITHUB_OUTPUT
+        if [ -f "$CHANGE_FILE" ]; then
+          cat "$CHANGE_FILE" >> $GITHUB_OUTPUT
+        else
+          echo "No changelog entry found. Run \`make version VERSION=${{ steps.version.outputs.VERSION }}\` before tagging." >> $GITHUB_OUTPUT
+        fi
+        echo "EOF" >> $GITHUB_OUTPUT
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ github.ref_name }}
+        name: Release ${{ github.ref_name }}
+        body: |
+          ${{ steps.changelog.outputs.CHANGELOG }}
+
+          ## Installation
+          ```bash
+          go get github.com/${{ github.repository }}@${{ github.ref_name }}
+          ```
+        draft: false
+        prerelease: false
+
+  publish:
+    name: Publish to pkg.go.dev
+    runs-on: ubuntu-latest
+    needs: release
+
+    steps:
+    - name: Trigger pkg.go.dev indexing
+      run: |
+        curl -sf "https://proxy.golang.org/github.com/${{ github.repository }}/@v/${{ github.ref_name }}.info" || true
