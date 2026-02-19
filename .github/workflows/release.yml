@@ -35,13 +35,14 @@ jobs:
       id: changelog
       run: |
         CHANGE_FILE=".changes/${{ steps.version.outputs.VERSION }}.md"
-        echo "CHANGELOG<<EOF" >> $GITHUB_OUTPUT
+        DELIMITER="$(openssl rand -hex 8)"
+        echo "CHANGELOG<<$DELIMITER" >> $GITHUB_OUTPUT
         if [ -f "$CHANGE_FILE" ]; then
           cat "$CHANGE_FILE" >> $GITHUB_OUTPUT
         else
           echo "No changelog entry found. Run \`make version VERSION=${{ steps.version.outputs.VERSION }}\` before tagging." >> $GITHUB_OUTPUT
         fi
-        echo "EOF" >> $GITHUB_OUTPUT
+        echo "$DELIMITER" >> $GITHUB_OUTPUT
 
     - name: Create Release
       uses: softprops/action-gh-release@v2
