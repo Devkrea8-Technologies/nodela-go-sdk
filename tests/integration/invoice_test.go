@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"nodela.co/go-sdk/pkg/models"
 	sdkerrors "nodela.co/go-sdk/pkg/errors"
+	"nodela.co/go-sdk/pkg/models"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

@@ -1,0 +1,88 @@
+{
+  "name": "Nodela Go SDK",
+  "version": "1.0.1",
+  "description": "Official Go client library for the Nodela payment API",
+  "baseUrl": "https://nodela.co",
+  "repository": "https://github.com/nodela/nodela-go-sdk",
+  "language": "go",
+  "sections": [
+    {
+      "id": "getting-started",
+      "title": "Getting Started",
+      "slug": "getting-started",
+      "file": "getting-started.md",
+      "description": "Install the SDK, create your first client, and make your first API call in minutes.",
+      "order": 1,
+      "tags": ["install", "quickstart", "setup"]
+    },
+    {
+      "id": "authentication",
+      "title": "Authentication",
+      "slug": "authentication",
+      "file": "authentication.md",
+      "description": "How API key authentication works and best practices for keeping credentials secure.",
+      "order": 2,
+      "tags": ["api-key", "bearer-token", "security"]
+    },
+    {
+      "id": "configuration",
+      "title": "Configuration",
+      "slug": "configuration",
+      "file": "configuration.md",
+      "description": "Customize the HTTP client, timeouts, and other SDK-level options.",
+      "order": 3,
+      "tags": ["timeout", "http-client", "options"]
+    },
+    {
+      "id": "invoices",
+      "title": "Invoices",
+      "slug": "invoices",
+      "file": "invoices.md",
+      "description": "Create hosted payment invoices, redirect customers to checkout, and verify payment status.",
+      "order": 4,
+      "tags": ["invoice", "checkout", "payment", "webhook"]
+    },
+    {
+      "id": "transactions",
+      "title": "Transactions",
+      "slug": "transactions",
+      "file": "transactions.md",
+      "description": "List and paginate through settled transactions on your account.",
+      "order": 5,
+      "tags": ["transaction", "pagination", "history"]
+    },
+    {
+      "id": "error-handling",
+      "title": "Error Handling",
+      "slug": "error-handling",
+      "file": "error-handling.md",
+      "description": "Understand SDKError and APIError types, error codes, and predicate helpers.",
+      "order": 6,
+      "tags": ["errors", "sdk-error", "api-error", "error-codes"]
+    },
+    {
+      "id": "supported-currencies",
+      "title": "Supported Currencies",
+      "slug": "supported-currencies",
+      "file": "supported-currencies.md",
+      "description": "Complete list of the 84 ISO 4217 currency codes accepted by the Nodela API.",
+      "order": 7,
+      "tags": ["currencies", "iso-4217", "fx", "global"]
+    },
+    {
+      "id": "api-reference",
+      "title": "API Reference",
+      "slug": "api-reference",
+      "file": "api-reference.md",
+      "description": "Complete reference for every exported type, method, field, and option in the SDK.",
+      "order": 8,
+      "tags": ["reference", "types", "methods", "models"]
+    }
+  ],
+  "meta": {
+    "generatedAt": "2026-02-19",
+    "sdkPackage": "nodela.co/go-sdk",
+    "goMinVersion": "1.22",
+    "license": "MIT"
+  }
+}
