@@ -27,30 +27,13 @@ jobs:
     - name: Run tests
       run: go test -v ./...
 
-    - name: Extract version
-      id: version
-      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-
-    - name: Get changelog for version
-      id: changelog
-      run: |
-        CHANGE_FILE=".changes/${{ steps.version.outputs.VERSION }}.md"
-        DELIMITER="$(openssl rand -hex 8)"
-        echo "CHANGELOG<<$DELIMITER" >> $GITHUB_OUTPUT
-        if [ -f "$CHANGE_FILE" ]; then
-          cat "$CHANGE_FILE" >> $GITHUB_OUTPUT
-        else
-          echo "No changelog entry found. Run \`make version VERSION=${{ steps.version.outputs.VERSION }}\` before tagging." >> $GITHUB_OUTPUT
-        fi
-        echo "$DELIMITER" >> $GITHUB_OUTPUT
-
     - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ github.ref_name }}
         name: Release ${{ github.ref_name }}
         body: |
-          ${{ steps.changelog.outputs.CHANGELOG }}
+          See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/${{ github.ref_name }}/CHANGELOG.md) for details.
 
           ## Installation
           ```bash
