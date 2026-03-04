@@ -75,6 +75,23 @@ func main() {
 
 ---
 
+## Documentation
+
+For full API reference, guides, and examples, see the [docs](docs/) folder:
+
+| Page | Description |
+|---|---|
+| [Getting Started](docs/getting-started.md) | Installation, API keys, and first steps |
+| [Authentication](docs/authentication.md) | How API key authentication works and best practices |
+| [Configuration](docs/configuration.md) | SDK options, timeouts, and custom HTTP clients |
+| [Invoices](docs/invoices.md) | Create payment invoices and verify status |
+| [Transactions](docs/transactions.md) | List and paginate through transaction history |
+| [Error Handling](docs/error-handling.md) | Structured error types and pattern matching |
+| [Supported Currencies](docs/supported-currencies.md) | Full list of 60+ supported fiat currencies |
+| [API Reference](docs/api-reference.md) | Complete reference for every exported type and method |
+
+---
+
 ## Authentication
 
 All API requests are authenticated with your Nodela **API key** via the `Authorization: Bearer <key>` header. The SDK handles this automatically — just pass your key to `NewClient`.

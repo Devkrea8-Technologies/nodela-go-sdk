@@ -6,7 +6,7 @@
   "version": "1.0.1",
   "description": "Official Go client library for the Nodela payment API",
   "baseUrl": "https://nodela.co",
-  "repository": "https://github.com/nodela/nodela-go-sdk",
+  "repository": "https://github.com/Devkrea8-Technologies/nodela-go-sdk",
   "language": "go",
   "sections": [
     {
